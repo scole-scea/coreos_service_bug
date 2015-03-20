@@ -1,0 +1,16 @@
+[Unit]
+Description=CoreOS/bugs/issues/8 helper service
+After=issue8@%i.service
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+KillMode=none
+
+ExecStart=/bin/bash -c "while true; do sleep 120; done"
+
+Restart=always
+
+[X-Fleet]
+MachineOf=issue8@%i.service

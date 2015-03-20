@@ -1,0 +1,18 @@
+[Unit]
+Description=CoreOS/bugs/issues/8 TEST SERVICE
+After=docker.service
+Requires=docker.service
+Wants=other-helper@%i.service
+Before=other-helper@%i.service
+
+[Service]
+TimeoutStartSec=0
+KillMode=none
+
+ExecStartPre=/bin/sleep 15
+ExecStart=/bin/bash -xc "while true; do sleep 50; done"
+
+Restart=always
+
+[X-Fleet]
+Conflicts=issue8@*.service
