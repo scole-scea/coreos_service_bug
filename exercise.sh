@@ -8,16 +8,12 @@ export FLEETCTL_TUNNEL=$(gcloud compute instances list --regex ci8-host-a --form
 
 fleetctl list-units
 
-
-fleetctl submit systemd-reload.service
-fleetctl start systemd-reload.service
-
 cp issue8@.service-before issue8@.service
 
 fleetctl submit issue8@.service other-helper@.service
-fleetctl load issue8@1.service issue8@2.service issue8@3.service issue8@4.service issue8@5.service
-fleetctl load other-helper@1.service other-helper@2.service other-helper@3.service other-helper@4.service other-helper@5.service
-fleetctl start issue8@1.service issue8@2.service issue8@3.service issue8@4.service issue8@5.service
+fleetctl load issue8@{1..5}.service
+fleetctl load other-helper@{1..5}.service
+fleetctl start issue8@{1..5}.service
 
 echo "Just launched:"
 fleetctl list-units
